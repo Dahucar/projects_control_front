@@ -1,0 +1,27 @@
+body {
+  background-color: rgb(33, 0, 77);
+}
+
+.content-project {
+  width: 100%;
+  text-align: center;
+}
+
+.project {
+  background: white;
+  border: solid 2px blueviolet;
+  border-radius: 100%;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+}
+
+.subproject {
+  background: white;
+  border: solid 2px blueviolet;
+  border-radius: 100%;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  margin-left: 15%;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AooComponent } from './AooComponent';
-import './index.css';
+import { AppComponent } from './AppComponent';
+import './styles/index.css';
 
 ReactDOM.render(
-  <AooComponent />,
+  <AppComponent />,
   document.getElementById('root')
 );
