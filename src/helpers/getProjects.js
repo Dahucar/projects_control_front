@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:4350/api';
+const baseUrl = process.env.REACT_APP_API_URL;
 
 export const getProject = ( endpoint = '', data = [], method = 'GET' ) => {
     const url =  endpoint != '' ?  `${ baseUrl }/${ endpoint }` : `${ baseUrl }/`;

@@ -2,16 +2,14 @@ import React from "react";
 import { getProject } from "../helpers/getProjects";
 import { useForm } from "../hooks/useForm";
 
-export const FormComponent = ({ setProject }) => {
+export const FormComponent = ({ setProject, loading }) => {
   const [values, handleInputChangue, resetInputsValues] = useForm({
     nameP: '',
     dateP: ''
   });
 
   const { nameP, dateP } = values;
-
-  const procesFetch = async ( nameParam, dateParam ) => {
-    const endpoint = nameParam != '' || dateParam != '' ? `project/${nameParam}/${dateParam}` : '';
+  const procesFetch = async ( endpoint ) => {
     const response = await getProject(endpoint);
     const body = await response.json();
     if(body.code == 200){
@@ -29,11 +27,13 @@ export const FormComponent = ({ setProject }) => {
 
   const handlerSubmit = (e) => {
     e.preventDefault();
-    if( nameP == '' || dateP == '' ){
-      return alert('Please. type the information filter.');
+    let endpoint = null;
+    if (nameP == '' && dateP == '') {
+      endpoint = '';
+    }else{
+      endpoint = `project/${nameP == '' ? 'empty':nameP}/${dateP == '' ? 'empty':dateP}`;
     }
-    
-    procesFetch(nameP, dateP);
+    procesFetch( endpoint);
     resetInputsValues();
   }
   
@@ -55,7 +55,7 @@ export const FormComponent = ({ setProject }) => {
         value={ dateP }
         onChange={ handleInputChangue }
       />
-      <button className="btn btn-success" type="submit">
+      <button className="btn btn-success" type="submit" disabled={loading}>
         Search
       </button>
     </form>

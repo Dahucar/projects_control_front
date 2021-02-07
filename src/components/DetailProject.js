@@ -14,14 +14,18 @@ export const DetailProject = ({ projects = [] }) => {
     let dateSubP = project.timestamp;
     const dateTime = dateSubP.split(' ',1);
     const existDate = dateList.includes(dateTime[0]);
+    let styleDate = null; // objeto con el estilo del elemento
     if(existDate == false){
       dateList.push(dateTime[0]);
+      styleDate = applyStyle(project.estatus);
+    }else{
+      styleDate = applyStyle(project.estatus, 2);
     }
     return (
       <div 
         key={ key } 
         className="timeline-item" 
-        style={ applyStyle(project.estatus) }
+        style={ styleDate }
       >
         <h4>{ project.subproyecto }</h4>
       </div>

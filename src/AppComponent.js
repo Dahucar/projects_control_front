@@ -5,17 +5,15 @@ import { NavbarComponent } from "./components/NavbarComponent";
 import { ProjectsList } from "./components/ProjectsList";
 import { getProject } from "./helpers/getProjects";
 
+const initialState = {
+  loading: true,
+  msg: '',
+  projectName: '',
+  projectList: [],
+}
 export const AppComponent = () => {
-  const initialState = {
-    loading: true,
-    msg: '',
-    projectName: '',
-    projectList: [],
-  }
   const [project, setProject] = useState(initialState);
-
-  const procesFetch = async () => {
-    // TODO: filtrar array inicial.
+  const processFetch = async () => {
     const response = await getProject();
     const body = await response.json()
     // success response
@@ -36,7 +34,9 @@ export const AppComponent = () => {
   }
   
   useEffect(() => {
-    procesFetch();    
+    setTimeout(() => {
+      processFetch(); 
+    }, 5000); 
   }, [ ]);
 
   const { loading, msg, projectName, projectList } = project;
@@ -44,26 +44,28 @@ export const AppComponent = () => {
     <div>
       <NavbarComponent />
       <section className="container-fluid">
-        <FormComponent setProject={setProject} />
+        <FormComponent setProject={setProject} loading={ loading } />
         <div className="card mt-1">
           <div className="card-body">
-            <div className="row">
-              <div className="col-4">
-                {
-                  projectList.length != 0 ? (
-                    <ProjectsList 
-                      loading={ loading } 
-                      projectName={ projectName }
-                      projectList={ projectList } 
-                    />
-                  ): 
-                  <h3>{msg}</h3>
-                }
-              </div>
-              <div className="col-8">
-                <DetailProject projects={ projectList }/>
-              </div>
-            </div>
+            {
+              !loading ? (
+                <div className="row">
+                  <div className="col-4">
+                      <ProjectsList 
+                        loading={ loading } 
+                        projectName={ projectName }
+                        projectList={ projectList } 
+                      />
+                  </div>
+                  <div className="col-8">
+                    <DetailProject projects={ projectList }/>
+                  </div>
+                </div>
+              ) :
+              (
+                <h3>Cargando...</h3>
+              )
+            }
           </div>
         </div>
       </section>
