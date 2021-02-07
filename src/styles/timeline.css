@@ -1,4 +1,14 @@
-.empty {
-    width: 10px;
-    height: 10px;
+.timeline-content {
+    height: 40px;
+    background-color: bisque;
+    border: solid 2px black;
+}
+
+.timeline-item {
+    float: left;
+    width: 20%;
+    height: 100%;
+    border: solid 1px black;
+    color: white;
+    text-align: center;
 }

@@ -1,7 +1,46 @@
 import React from "react";
 import '../styles/timeline.css';
 
-export const DetailProject = () => {
+const initialData = {
+  proyecto: '',
+  subproyecto: '',
+  estatus: 0,
+  timestamp: ''
+}
+
+export const DetailProject = ({ projects = [] }) => {
+  let dateList = [];
+  const showSubProject = ( project = initialData, key = 0 ) => {
+    let dateSubP = project.timestamp;
+    const dateTime = dateSubP.split(' ',1);
+    const existDate = dateList.includes(dateTime[0]);
+    if(existDate == false){
+      dateList.push(dateTime[0]);
+    }
+    return (
+      <div 
+        key={ key } 
+        className="timeline-item" 
+        style={ applyStyle(project.estatus) }
+      >
+        <h4>{ project.subproyecto }</h4>
+      </div>
+    )
+  }
+
+  const applyStyle = ( estatus, multiply = 0 ) => {
+    if (multiply != 0) {
+      return { background: 'yellow' }
+    }
+    if (estatus == 1) {
+      return { background: 'green' }
+    }
+    if (estatus == 0) {
+      return { background: 'red' }
+    }
+  }
+
+  // createDateList(projects);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -9,8 +48,13 @@ export const DetailProject = () => {
           <div className="card">
             <div className="card-body">
               <h4 className="card-title mb-5">Horizontal Timeline</h4>
-                <div className="badge bg-primary empty"></div>
-                <div className="badge bg-primary empty"></div>
+              <div className="timeline-content">
+                {
+                  projects.map((item, i) => (
+                    showSubProject( item, i )  
+                  ))
+                }
+              </div>
             </div>
           </div>
         </div>
@@ -18,15 +62,3 @@ export const DetailProject = () => {
     </div>
   )
 }
-
-/*
-
-<li className="list-inline-item event-list">
-  <div className="px-4">
-    <div className="event-date bg-soft-danger text-danger">
-      7 June
-    </div>
-  </div>
-</li>
-
-*/
