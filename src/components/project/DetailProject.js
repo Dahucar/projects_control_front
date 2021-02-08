@@ -1,48 +1,48 @@
 import React from "react";
-import '../styles/timeline.css';
+import "../../styles/timeline.css";
 
 const initialData = {
-  proyecto: '',
-  subproyecto: '',
+  proyecto: "",
+  subproyecto: "",
   estatus: 0,
-  timestamp: ''
-}
+  timestamp: "",
+};
 
 export const DetailProject = ({ projects = [] }) => {
   let dateList = [];
-  const showSubProject = ( project = initialData, key = 0 ) => {
+  const showSubProject = (project = initialData, key = 0) => {
     let dateSubP = project.timestamp;
-    const dateTime = dateSubP.split(' ',1);
+    const dateTime = dateSubP.split(" ", 1);
     const existDate = dateList.includes(dateTime[0]);
     let styleDate = null; // objeto con el estilo del elemento
-    if(existDate == false){
+    if (existDate == false) {
       dateList.push(dateTime[0]);
       styleDate = applyStyle(project.estatus);
-    }else{
+    } else {
       styleDate = applyStyle(project.estatus, 2);
     }
     return (
-      <div 
-        key={ key } 
-        className="project-item badge rounded-pill" 
-        style={ styleDate }
+      <div
+        key={key}
+        className="project-item badge rounded-pill"
+        style={styleDate}
       >
-        <h4>{ project.subproyecto }</h4>
+        <h4>{project.subproyecto}</h4>
       </div>
-    )
-  }
+    );
+  };
 
-  const applyStyle = ( estatus, multiply = 0 ) => {
+  const applyStyle = (estatus, multiply = 0) => {
     if (multiply != 0) {
-      return { background: 'yellow' }
+      return { background: "yellow" };
     }
     if (estatus == 1) {
-      return { background: 'green' }
+      return { background: "green" };
     }
     if (estatus == 0) {
-      return { background: 'red' }
+      return { background: "red" };
     }
-  }
+  };
 
   // createDateList(projects);
   return (
@@ -53,16 +53,12 @@ export const DetailProject = ({ projects = [] }) => {
             <div className="card-body">
               <h4 className="card-title mb-5">Horizontal Timeline</h4>
               <div className="timeline-content">
-                {
-                  projects.map((item, i) => (
-                    showSubProject( item, i )  
-                  ))
-                }
+                {projects.map((item, i) => showSubProject(item, i))}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
