@@ -1,35 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
+// UI Components
 import { NavbarComponent } from "./ui/NavbarComponent";
 import { SpinnerComponent } from "./ui/SpinnerComponent";
-
+// Components
 import { DetailProject } from "./project/DetailProject";
 import { FormComponent } from "./project/FormComponent";
 import { ProjectsList } from "./project/ProjectsList";
-
+// Helpers 
 import { getProject } from "../helpers/getProjects";
-
-const initialState = {
-  loading: true,
-  msg: "",
-  projectName: "",
-  projectList: [],
-};
+import { initialState } from "../helpers/initialState";
+// Context API
+import { ProjectContex } from "../projectContext/ProjectContex";
 
 export const ProjectComponent = () => {
-  const [project, setProject] = useState(initialState);
+  const { projectState, setProjectState } = useContext(ProjectContex);
   const processFetch = async () => {
     const response = await getProject();
     const body = await response.json();
     // success response
     if (body.code == 200) {
       const { proyecto, subproyecto } = body.information;
-      setProject({
+      setProjectState({
         loading: false,
         projectName: proyecto,
         projectList: [...subproyecto],
       });
     } else {
-      setProject({
+      setProjectState({
         ...initialState,
         loading: false,
         msg: body.msg,
@@ -41,21 +38,18 @@ export const ProjectComponent = () => {
     processFetch();
   }, []);
 
-  const { loading, projectName, projectList } = project;
+  const { loading, projectList } = projectState;
   return (
     <div>
       <NavbarComponent />
       <section className="container-fluid">
-        <FormComponent setProject={setProject} loading={loading} />
+        <FormComponent />
         <div className="card mt-1">
           <div className="card-body">
             {!loading ? (
               <div className="row">
                 <div className="col-4">
-                  <ProjectsList
-                    projectName={projectName}
-                    projectList={projectList}
-                  />
+                  <ProjectsList />
                 </div>
                 <div className="col-8">
                   <DetailProject projects={projectList} />

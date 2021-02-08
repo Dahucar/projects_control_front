@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+// Helpers
 import { getProject } from "../../helpers/getProjects";
+// Hooks
 import { useForm } from "../../hooks/useForm";
+// Context API
+import { ProjectContex } from "../../projectContext/ProjectContex";
 
-export const FormComponent = ({ setProject, loading }) => {
+export const FormComponent = () => {
+  const { projectState, setProjectState } = useContext(ProjectContex);
   const [values, handleInputChangue, resetInputsValues] = useForm({
     nameP: "",
     dateP: "",
@@ -19,9 +24,9 @@ export const FormComponent = ({ setProject, loading }) => {
         projectName: proyecto,
         projectList: [...subproyecto],
       };
-      setProject(values);
+      setProjectState(values);
     } else {
-      setProject({ loading: false, msg: body.msg, projectList: [] });
+      setProjectState({ loading: false, msg: body.msg, projectList: [] });
     }
   };
 
@@ -39,6 +44,7 @@ export const FormComponent = ({ setProject, loading }) => {
     resetInputsValues();
   };
 
+  const { loading } = projectState;
   return (
     <form onSubmit={handlerSubmit} className="mt-1 d-flex">
       <input

@@ -1,16 +1,10 @@
 import React from "react";
 import "../../styles/timeline.css";
-
-const initialData = {
-  proyecto: "",
-  subproyecto: "",
-  estatus: 0,
-  timestamp: "",
-};
+import { TimeLineItem } from "./TimeLineItem";
 
 export const DetailProject = ({ projects = [] }) => {
   let dateList = [];
-  const showSubProject = (project = initialData, key = 0) => {
+  const showSubProject = (project, key = 0) => {
     let dateSubP = project.timestamp;
     const dateTime = dateSubP.split(" ", 1);
     const existDate = dateList.includes(dateTime[0]);
@@ -22,13 +16,11 @@ export const DetailProject = ({ projects = [] }) => {
       styleDate = applyStyle(project.estatus, 2);
     }
     return (
-      <div
+      <TimeLineItem
         key={key}
-        className="project-item badge rounded-pill"
-        style={styleDate}
-      >
-        <h4>{project.subproyecto}</h4>
-      </div>
+        subproyecto={project.subproyecto}
+        styleDate={styleDate}
+      />
     );
   };
 
@@ -44,7 +36,6 @@ export const DetailProject = ({ projects = [] }) => {
     }
   };
 
-  // createDateList(projects);
   return (
     <div className="container-fluid">
       <div className="row">
