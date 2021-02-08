@@ -24,7 +24,7 @@ export const DetailProject = ({ projects = [] }) => {
     return (
       <div 
         key={ key } 
-        className="timeline-item" 
+        className="project-item badge rounded-pill" 
         style={ styleDate }
       >
         <h4>{ project.subproyecto }</h4>

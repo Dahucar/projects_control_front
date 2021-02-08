@@ -1,7 +1,5 @@
 .timeline-content {
     height: 40px;
-    background-color: bisque;
-    border: solid 2px black;
 }
 
 .timeline-item {
@@ -11,4 +9,15 @@
     border: solid 1px black;
     color: white;
     text-align: center;
+}
+
+.spinner-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-item {
+    border: solid 1px black;
+    margin: 5px;
 }

@@ -1,14 +1,6 @@
 import React from "react";
 
-export const ProjectsList = ({ loading, projectName, projectList = [] }) => {
-  if (loading) {
-    return (
-      <div class="spinner-grow text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    )
-  }
-
+export const ProjectsList = ({ projectName, projectList = [] }) => {
   return (
     <div className="content-project mb-2">
       <div className="project">{projectName}</div>

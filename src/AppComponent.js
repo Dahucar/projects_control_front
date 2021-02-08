@@ -3,6 +3,7 @@ import { DetailProject } from "./components/DetailProject";
 import { FormComponent } from "./components/FormComponent";
 import { NavbarComponent } from "./components/NavbarComponent";
 import { ProjectsList } from "./components/ProjectsList";
+import { SpinnerComponent } from "./components/ui/SpinnerComponent";
 import { getProject } from "./helpers/getProjects";
 
 const initialState = {
@@ -34,12 +35,10 @@ export const AppComponent = () => {
   }
   
   useEffect(() => {
-    setTimeout(() => {
-      processFetch(); 
-    }, 5000); 
+    processFetch(); 
   }, [ ]);
 
-  const { loading, msg, projectName, projectList } = project;
+  const { loading, projectName, projectList } = project;
   return (
     <div>
       <NavbarComponent />
@@ -52,19 +51,16 @@ export const AppComponent = () => {
                 <div className="row">
                   <div className="col-4">
                       <ProjectsList 
-                        loading={ loading } 
                         projectName={ projectName }
                         projectList={ projectList } 
                       />
                   </div>
                   <div className="col-8">
-                    <DetailProject projects={ projectList }/>
+                    <DetailProject projects={ projectList } />
                   </div>
                 </div>
               ) :
-              (
-                <h3>Cargando...</h3>
-              )
+              ( <SpinnerComponent /> )
             }
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { getProject } from "../helpers/getProjects";
 import { useForm } from "../hooks/useForm";
 
@@ -46,14 +46,15 @@ export const FormComponent = ({ setProject, loading }) => {
         name="nameP"
         value={ nameP }
         onChange={ handleInputChangue }
+        disabled={loading}
       />
       <input
         type="date"
         className="form-control me-2"
-        placeholder="Enter your date project"
         name="dateP"
         value={ dateP }
         onChange={ handleInputChangue }
+        disabled={loading}
       />
       <button className="btn btn-success" type="submit" disabled={loading}>
         Search

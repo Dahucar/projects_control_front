@@ -9,18 +9,23 @@ body {
 
 .project {
   background: white;
-  border: solid 2px blueviolet;
+  border: solid 3px blueviolet;
+  background-color: blueviolet;
   border-radius: 100%;
+  color: white;
   text-align: center;
-  width: 30px;
-  height: 30px;
+  font-size: 35px;
+  width: 60px;
+  height: 60px;
 }
 
 .subproject {
   background: white;
-  border: solid 2px blueviolet;
-  /* border-radius: 100%; */
+  border: solid 3px blueviolet;
+  background-color: blueviolet;
   text-align: center;
+  line-height: 60px;
+  color: white;
   margin: 10px;
   width: 70px;
   height: 70px;
