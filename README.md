@@ -8,5 +8,8 @@
 
 ### `npm start` para ejecutar el proyecto.
 
-ejecutara la aplicación en modo de desarrollo. Esta estara disponibl en [http://localhost:3000](http://localhost:3000) desde su navegador.
+ejecutara la aplicación en modo de desarrollo. Esta estará disponible en [http://localhost:3000](http://localhost:3000) desde su navegador.
 
+### `npm run build` para ficheros destinados a producción.
+
+creara los archivos optimizados para producción dentro de un nuevo directorio llamado /build
