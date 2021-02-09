@@ -1,9 +1,9 @@
-# Desafío Técnico: FullStack Cadem (Cliente)
+# Desafío Técnico: FullStack Cadem (Cliente React)
 
 ## Instrucciones de ejecución.
 - Instalar modulos de Node mediante npm
     > **npm i**
-- Copiar el archivo **.env.example** a **.env** donde en la clave definida deberá establecer la url del servicio REST 
+- Copiar el archivo **.env.example** a **.env** donde en la clave definida deberá establecer la url del servicio REST, un ejemplo de esto sería la siguiente url **http://localhost:4350/api/**. El puerto usado en este caso corresponde al especificados en el archivo **.env** del proyecto backend.
     > REACT_APP_API_URL=
 
 ### `npm start` para ejecutar el proyecto.
