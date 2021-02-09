@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from "react";
 // UI Components
 import { NavbarComponent } from "./ui/NavbarComponent";
 import { SpinnerComponent } from "./ui/SpinnerComponent";
+import { AlertComponent } from "./ui/AlertComponent";
 // Components
-import { DetailProject } from "./project/DetailProject";
 import { FormComponent } from "./project/FormComponent";
-import { ProjectsList } from "./project/ProjectsList";
+import { ProjectScreen } from "./project/ProjectScreen";
 // Helpers 
 import { getProject } from "../helpers/getProjects";
 import { initialState } from "../helpers/initialState";
@@ -18,14 +18,23 @@ export const ProjectComponent = () => {
     const response = await getProject();
     const body = await response.json();
     // success response
-    if (body.code == 200) {
-      const { proyecto, subproyecto } = body.information;
-      setProjectState({
-        loading: false,
-        projectName: proyecto,
-        projectList: [...subproyecto],
-      });
-    } else {
+    if(body.code != 500){
+      if (body.code == 200) {
+        const { proyecto, subproyecto } = body.information;
+        setProjectState({
+          loading: false,
+          msg: '',
+          projectName: proyecto,
+          projectList: [...subproyecto],
+        });
+      } else {
+        setProjectState({
+          ...initialState,
+          loading: false,
+          msg: body.msg,
+        });
+      }
+    }else{
       setProjectState({
         ...initialState,
         loading: false,
@@ -38,7 +47,7 @@ export const ProjectComponent = () => {
     processFetch();
   }, []);
 
-  const { loading, projectList } = projectState;
+  const { loading, msg } = projectState;
   return (
     <div>
       <NavbarComponent />
@@ -46,15 +55,16 @@ export const ProjectComponent = () => {
         <FormComponent />
         <div className="card mt-1">
           <div className="card-body">
-            {!loading ? (
-              <div className="row">
-                <div className="col-4">
-                  <ProjectsList />
-                </div>
-                <div className="col-8">
-                  <DetailProject projects={projectList} />
-                </div>
-              </div>
+            { 
+              msg != '' && (
+                <AlertComponent 
+                  typeAlert="alert-danger"
+                  msg={ msg }   
+                />
+              )
+            }
+            {!loading && msg == '' ? (
+              <ProjectScreen />
             ) : (
               <SpinnerComponent />
             )}

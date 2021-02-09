@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 // Helpers
 import { getProject } from "../../helpers/getProjects";
+import { initialState } from '../../helpers/initialState';
 // Hooks
 import { useForm } from "../../hooks/useForm";
 // Context API
@@ -17,16 +18,29 @@ export const FormComponent = () => {
   const procesFetch = async (endpoint) => {
     const response = await getProject(endpoint);
     const body = await response.json();
-    if (body.code == 200) {
-      const { proyecto, subproyecto } = body.information;
-      const values = {
+    // success response
+    if (body.code != 500) {
+      if (body.code == 200) {
+        const { proyecto, subproyecto } = body.information;
+        setProjectState({
+          loading: false,
+          msg: '',
+          projectName: proyecto,
+          projectList: [...subproyecto],
+        });
+      } else {
+        setProjectState({
+          ...initialState,
+          loading: false,
+          msg: body.msg,
+        });
+      }
+    }else{
+      setProjectState({
+        ...initialState,
         loading: false,
-        projectName: proyecto,
-        projectList: [...subproyecto],
-      };
-      setProjectState(values);
-    } else {
-      setProjectState({ loading: false, msg: body.msg, projectList: [] });
+        msg: body.msg,
+      });
     }
   };
 

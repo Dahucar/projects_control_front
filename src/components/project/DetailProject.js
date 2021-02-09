@@ -1,8 +1,12 @@
-import React from "react";
-import "../../styles/timeline.css";
+import React, { useContext } from "react";
 import { TimeLineItem } from "./TimeLineItem";
+import { ProjectContex } from "../../projectContext/ProjectContex";
+import "../../styles/timeline.css";
 
-export const DetailProject = ({ projects = [] }) => {
+export const DetailProject = () => {
+  const { projectState } = useContext(ProjectContex);
+  const { projectList } = projectState;
+
   let dateList = [];
   const showSubProject = (project, key = 0) => {
     let dateSubP = project.timestamp;
@@ -40,13 +44,8 @@ export const DetailProject = ({ projects = [] }) => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg-12">
-          <div className="card">
-            <div className="card-body">
-              <h4 className="card-title mb-5">Horizontal Timeline</h4>
-              <div className="timeline-content">
-                {projects.map((item, i) => showSubProject(item, i))}
-              </div>
-            </div>
+          <div className="timeline-content">
+            {projectList.map((item, i) => showSubProject(item, i))}
           </div>
         </div>
       </div>
