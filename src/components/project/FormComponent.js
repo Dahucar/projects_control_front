@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 // Helpers
-import { getProject } from "../../helpers/getProjects";
-import { initialState } from '../../helpers/initialState';
+import { processFetch } from "../../helpers/getProjects";
 // Hooks
 import { useForm } from "../../hooks/useForm";
 // Context API
@@ -15,34 +14,10 @@ export const FormComponent = () => {
   });
 
   const { nameP, dateP } = values;
-  const procesFetch = async (endpoint) => {
-    const response = await getProject(endpoint);
-    const body = await response.json();
-    // success response
-    if (body.code != 500) {
-      if (body.code == 200) {
-        const { proyecto, subproyecto } = body.information;
-        setProjectState({
-          loading: false,
-          msg: '',
-          projectName: proyecto,
-          projectList: [...subproyecto],
-        });
-      } else {
-        setProjectState({
-          ...initialState,
-          loading: false,
-          msg: body.msg,
-        });
-      }
-    }else{
-      setProjectState({
-        ...initialState,
-        loading: false,
-        msg: body.msg,
-      });
-    }
-  };
+  const getFilterFetch = async ( endpoint ) => {
+    const result = await processFetch(endpoint);
+    setProjectState(result);
+  }
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +29,7 @@ export const FormComponent = () => {
         dateP == "" ? "empty" : dateP
       }`;
     }
-    procesFetch(endpoint);
+    getFilterFetch(endpoint);
     resetInputsValues();
   };
 
