@@ -10,24 +10,23 @@ export const FormComponent = () => {
   const { projectState, setProjectState } = useContext(ProjectContex);
   const [values, handleInputChangue, resetInputsValues] = useForm({
     nameP: "",
-    dateP: "",
+    dateInit: "",
+    dateFinish: "",
   });
 
-  const { nameP, dateP } = values;
-  const getFilterFetch = async ( endpoint ) => {
+  const { nameP, dateInit, dateFinish } = values;
+  const getFilterFetch = async (endpoint) => {
     const result = await processFetch(endpoint);
     setProjectState(result);
-  }
+  };
 
   const handlerSubmit = (e) => {
     e.preventDefault();
     let endpoint = null;
-    if (nameP == "" && dateP == "") {
-      endpoint = "";
+    if (dateInit != "" && dateFinish != "") {
+      endpoint = `project/${nameP == "" ? "empty" : nameP}/${dateInit == "" ? "empty" : dateInit}/${dateFinish == "" ? "empty" : dateFinish}`;
     } else {
-      endpoint = `project/${nameP == "" ? "empty" : nameP}/${
-        dateP == "" ? "empty" : dateP
-      }`;
+      endpoint = "";
     }
     getFilterFetch(endpoint);
     resetInputsValues();
@@ -48,8 +47,16 @@ export const FormComponent = () => {
       <input
         type="date"
         className="form-control me-2"
-        name="dateP"
-        value={dateP}
+        name="dateInit"
+        value={dateInit}
+        onChange={handleInputChangue}
+        disabled={loading}
+      />
+      <input
+        type="date"
+        className="form-control me-2"
+        name="dateFinish"
+        value={dateFinish}
         onChange={handleInputChangue}
         disabled={loading}
       />
